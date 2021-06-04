@@ -12,6 +12,16 @@ variable "function_name" {
 # These parameters have reasonable defaults.
 # ---------------------------------------------------------------------------------------------------------------------
 
+variable "aws_region_type" {
+  description = ""
+  default     = "aws"
+  type        = string
+  validation {
+    condition     = lookup(["aws", "aws-us-gov"], var.aws_region_type, false)
+    error_message = "Value must be one of 'aws', 'aws-us-gov'."
+  }
+}
+
 variable "cloudwatch_lambda_insights_enabled" {
   description = "Enable CloudWatch Lambda Insights for your Lambda function."
   default     = false
